@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send HTTP Message</title>
+</head>
+<body>
+    <button id="sendHttpButton" onclick="sendHttpMessage()">设备报警</button>
+    <button id="redirectButton" onclick="redirectToUrl()">设备位置</button>
+
+    <script>
+        function sendHttpMessage() {
+            // 创建一个新的XMLHttpRequest对象
+            var xhr = new XMLHttpRequest();
+
+            // 设置请求方法和URL
+            // xhr.open("POST", "http://192.168.66.56:61234", true);
+            xhr.open("POST", "http://112.126.70.51:61234", true);
+
+            // 设置请求头
+            xhr.setRequestHeader("Content-Type", "text/plain");
+
+            // 发送HTTP消息内容为"1"
+            xhr.send("1");
+
+            console.log("HTTP消息已发送");
+        }
+
+        function redirectToUrl() {
+            // 跳转到指定URL
+            window.location.href = "https://uri.amap.com/marker?position=114.60,36.66";
+        }
+    </script>
+</body>
+</html>
