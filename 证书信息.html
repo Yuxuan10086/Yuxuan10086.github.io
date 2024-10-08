@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://teacher.vocational.smartedu.cn/h/v/?u=NjE2NTUzNjA5NDk1MDAzMTM2&s=8&t=2&c=130632197703MTA0NDE4 -->
+<html lang="en" style="font-size: 100px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>证书信息</title>
+    <link rel="stylesheet" href="./证书信息_files/rest.css">
+    <link rel="stylesheet" href="./证书信息_files/zscx.css">
+    <link rel="stylesheet" href="./证书信息_files/headerbar.css">
+    <link rel="stylesheet" href="./证书信息_files/iconfont.css">
+    <script>
+        (function (doc, win) {
+      var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function () {
+              var clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+              if(clientWidth>=375){
+                  docEl.style.fontSize = '100px';
+              }else{
+                  docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+              }
+          };
+  
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+  })(document, window);
+  </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <!-- <a href="#html" onclick="javascript:window.history.go(-1);"><i class="iconfont icon-zuoyou1"></i></a>
+            <span>证书信息</span> -->
+        </div>
+        <div class="tit">
+            <p style="text-align:center;padding-left:0px;background:blue;color:white;">2024年暑期教师研修证书</p>
+        </div>
+        <div class="content_">
+                <p>证书编号：<span id="card_number">GPH02202400041230</span></p>
+				<p style="display:none" id="all_auth">认定学时：<span id="all_auth_length"></span> 学时</p>
+                <p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<span id="card_realname">周少玲</span></p>
+                <p>证件号码：<span id="card_card_number">1304**********2745</span></p>
+                <p>发证日期：<span id="card_date">2024年9月</span></p>
+        </div>
+    </div>
+
+
+<script src="./证书信息_files/jquery1.12.1.min.js.下载"></script>
+<script>
+all_study_length = 0;
+all_auth_length = 0;
+all_study_length_num = 0;
+var api_host='https://core.teacher.vocational.smartedu.cn/p/course/services/course/';
+
+~(function(root, factory) {
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof module === "object" && module.exports) {
+    module.exports = factory();
+  } else {
+    root.Base = factory();
+  }
+}(this, function() {
+   'use strict';
+
+    function Base64() {
+        // private property
+        this._keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    }
+    //public method for encoding
+    Base64.prototype.encode = function (input) {
+        var output = "", chr1, chr2, chr3, enc1, enc2, enc3, enc4, i = 0;
+        input = this._utf8_encode(input);
+        while (i < input.length) {
+            chr1 = input.charCodeAt(i++);
+            chr2 = input.charCodeAt(i++);
+            chr3 = input.charCodeAt(i++);
+            enc1 = chr1 >> 2;
+            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+            enc4 = chr3 & 63;
+            if (isNaN(chr2)) {
+                enc3 = enc4 = 64;
+            } else if (isNaN(chr3)) {
+                enc4 = 64;
+            }
+            output = output +
+            this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+            this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+        }
+        return output;
+    }
+
+    // public method for decoding
+    Base64.prototype.decode = function (input) {
+        var output = "", chr1, chr2, chr3, enc1, enc2, enc3, enc4, i = 0;
+      input = input.replace(/[^A-Za-z0-9+/=]/g, "");
+        while (i < input.length) {
+            enc1 = this._keyStr.indexOf(input.charAt(i++));
+            enc2 = this._keyStr.indexOf(input.charAt(i++));
+            enc3 = this._keyStr.indexOf(input.charAt(i++));
+            enc4 = this._keyStr.indexOf(input.charAt(i++));
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+            output = output + String.fromCharCode(chr1);
+            if (enc3 != 64) {
+                output = output + String.fromCharCode(chr2);
+            }
+            if (enc4 != 64) {
+                output = output + String.fromCharCode(chr3);
+            }
+        }
+        output = this._utf8_decode(output);
+        return output;
+    }
+
+    // private method for UTF-8 encoding
+    Base64.prototype._utf8_encode = function (string) {
+        string = string.replace(/rn/g,"n");
+        var utftext = "";
+        for (var n = 0; n < string.length; n++) {
+            var c = string.charCodeAt(n);
+            if (c < 128) {
+                utftext += String.fromCharCode(c);
+            } else if((c > 127) && (c < 2048)) {
+                utftext += String.fromCharCode((c >> 6) | 192);
+                utftext += String.fromCharCode((c & 63) | 128);
+            } else {
+                utftext += String.fromCharCode((c >> 12) | 224);
+                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                utftext += String.fromCharCode((c & 63) | 128);
+            }
+
+        }
+        return utftext;
+    }
+
+    // private method for UTF-8 decoding
+    Base64.prototype._utf8_decode = function (utftext) {
+        var string = "", i = 0, c = 0, c1 = 0, c2 = 0, c3 = 0;
+        while ( i < utftext.length ) {
+            c = utftext.charCodeAt(i);
+            if (c < 128) {
+                string += String.fromCharCode(c);
+                i++;
+            } else if((c > 191) && (c < 224)) {
+                c2 = utftext.charCodeAt(i+1);
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                i += 2;
+            } else {
+                c2 = utftext.charCodeAt(i+1);
+                c3 = utftext.charCodeAt(i+2);
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                i += 3;
+            }
+        }
+        return string;
+    }
+
+    var Base = new Base64();
+
+    return Base;
+}));
+    var infoDomain="https://hold.teacher.vocational.smartedu.cn";
+    var loginUserId=0;
+    var type=1;
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r!=null) return (r[2]); return null;
+    }
+    loginUserId = Base.decode(getUrlParam("u"));
+    type = getUrlParam("t");
+   speType = getUrlParam("s"); //1：暑期 2：法制 3:免试 4：心理 5：2023寒假 6师德师风 7 2024寒假 8 2024暑期
+if(speType){
+speType = speType;
+}else{
+speType = 1;
+}
+    validateCard();
+	
+	//心理健康专题扫码新增认定学时显示
+	if(speType == 4){
+		getStudyTime(speType);
+	}
+	
+    function validateCard()
+    {
+
+        $.ajax({
+                type:"GET",
+                dataType:'jsonp',
+                url: infoDomain+"/xxapi/public/api/v1/certificate/student/validate/exist",
+                data:{"loginUserId":loginUserId,"type":type,"speType":speType},//type 1职教  2高教  //speType 1：暑期 2：法制 3:免试 4：心理 5：2023寒假 6师德师风
+                success:function(json){
+                  if(json.success==true)
+                  {
+                  	if(loginUserId=="617517093137858560")
+                  	{
+                    	$("#card_realname").html("<img src='/dev/upload/image/20220905/1662364902339716.jpg' style='height:27px;margin-bottom:-6px;'>");
+                    }
+                    else
+                    {
+                    	$("#card_realname").html(json.data.user.realname);
+                    }
+                    $("#card_card_number").html(json.data.user.identity);
+                    $("#card_number").html(json.data.user.certificateNumber);
+                     if(speType == 8){
+						//标题
+						$(".tit p").html('2024年暑期教师研修证书');
+						//日期
+						$("#card_date").html('2024年9月');
+					}
+                          else if(speType == 7){
+					//标题
+					$(".tit p").html('2024年寒假教师研修证书');
+					//日期
+					$("#card_date").html('2024年3月');
+				}else if(speType == 6){
+					//标题
+					$(".tit p").html('2023年暑期教师研修证书');
+					//日期
+					$("#card_date").html('2023-08');
+				}else if(speType == 5){
+					//标题
+					$(".tit p").html('2023年寒假教师研修证书');
+					//日期
+					$("#card_date").html('2023-03-01');
+					}else if(speType == 4){
+						//标题
+						$(".tit p").html('2023年心理健康教师研修证书');
+						//日期
+						$("#card_date").html('2023-03-01');
+					}else if(speType == 3){
+						//标题
+						$(".tit p").html('2023年免试教师研修证书');
+						//日期
+						$("#card_date").html('2023-03-01');
+					}else if(speType == 2){
+						//标题
+						$(".tit p").html('2023年法制教师研修证书');
+						//日期
+						$("#card_date").html('2023-03-01');
+					}else{
+						//标题
+						$(".tit p").html('2022年暑期教师研修证书');
+						//日期
+						$("#card_date").html('2022-09-01');
+					}
+                  }
+                },
+                complete : function(XMLHttpRequest,status){
+                },
+                error : function(XMLHttpRequest,status){
+                }
+            });
+    }
+	
+	//证书扫码后新增认定学时
+	function getStudyTime(speType){
+		if(type ==1){ //职教
+			if(speType == 4){
+				var projectId = '674435317350576128';//线上需更换
+				let courseArray = ['674493356761346048_675249095122374656','674493413827706880_675249095130763264','674493496170659840_675249095139151872','674493542342967296_675249095143346177','674493591848288256_675249095151734784','674493629290479616_675249095160123392','674493673543344128_675249095168512000','674493722461372416_675249095172706305','674493774639853568_675249095181094912','674853563551662080_675249095185289217','674853563560050688_675249095197872128','674853563589410816_675249095206260736','674853563597799424_675249095214649344','674853563614576640_675249095218843648','674493457560485888_677658093985583104','674853563534884864_677658094002360320','674853563543273472_677658094014943232','674853563568439296_677662011583422464','674853563581022208_677658094031720448','674853563606188032_677658094048497664'];
+				let itemIdArray = ['675204996976459776','675256703330557952','675256703372500992','675256703401861120','675256703435415552','675256703464775680','675256703494135808','675256703527690240','675256703561244672','675256703611576320','675256703640936448','675256703691268096','675256703724822528','675256703775154176','677657482392178688','677629804246769664','677629804271935488','677657483168124928','677629804372598784','677665975407501312'];
+				for (let i = 0, len = courseArray.length; i < len; i++) {
+					loadcouse_4(courseArray[i], loginUserId, i,itemIdArray[i],projectId);
+				}
+				$("#all_auth").show();
+				//$("#all_auth").hide();
+			}else{
+				$("#all_auth").hide();
+			}
+		}else if(type == 2){//高教
+			if(speType == 4){
+				var projectId = '674437973057400832';//线上需更换
+				    let courseArray = ['674494032504324096_675249013580111872','674494064687218688_675249013588500480','674494142752038912_675249013596889088','674494194117251072_675249013613666304','674494237614317568_675249013630443520','674494289684467712_675249013638832128','674494332594462720_675249013651415040','674494377433501696_675249013663997952','674494419150049280_675249013672386560','674854143327764480_675249013684969472','674854143348736000_675249013693358080','674854143407456256_675249013697552385','674854143424233472_675249013714329600','674854143461982208_675249013726912512','674494102454071296_677659798859345920','674854143290015744_677659798880317440','674854143306792960_677659798897094656','674854143365513216_677661921791762432','674854143390679040_677659798918066176','674854143445204992_677659798943232000'];
+					let itemIdArray = ['675253916807532544','675253916849475584','675253916887224320','675253916920778752','675253916950138880','675253916983693312','675253917013053440','675253917046607872','675253917075968000','675253917126299648','675253917155659776','675253917210185728','675253917243740160','675253917285683200','677656810151837696','677630597076922368','677630597106282496','677656810525130752','677630597206945792','677666145314562048'];
+				for (let i = 0, len = courseArray.length; i < len; i++) {
+					loadcouse_g4(courseArray[i], loginUserId, i,itemIdArray[i],projectId);
+				}
+				$("#all_auth").show();
+			}else{
+				$("#all_auth").hide();
+			}
+		}
+
+	}
+	
+     function loadcouse_4(coursestr,userid,num,itemId,projectId){
+        //获取itemId
+        //var itemId = $("#itemId"+coursestr).val();
+        /*if(fourcourseArray.indexOf(coursestr) != -1){//存在
+            var itemId = $("#itemId").val();
+        }*/
+        /*studylength_course = getCookie("studylength_course_bck"+ufo_id+coursestr);
+        if(studylength_course!=null)
+        {
+            studylength_course = parseFloat(studylength_course);
+            $("#studylength"+coursestr).html(studylength_course);
+            authlength_course = 0;
+            if(num<30)
+            {
+              if(studylength_course>=1)
+              {
+                if(num==0)
+                {
+                    if(studylength_course>=2)
+                    {
+                        authlength_course = 1;
+                    }
+                    else
+                    {
+                        authlength_course=0;
+                    }
+                }
+                else
+                {
+                    authlength_course = 1;
+                }
+              }
+              else
+              {
+                authlength_course = 0;
+              }
+
+            }
+            else
+            {
+              if(studylength_course>3)
+              {
+                authlength_course = 3;
+              }
+              else
+              {
+                authlength_course = Math.floor(studylength_course);
+              }
+            }
+            $("#authlength"+coursestr).html(authlength_course);
+            all_auth_length += authlength_course;
+            all_study_length += studylength_course;
+            all_study_length_num++;
+            $("#all_study_length").html(parseFloat((Math.floor(all_study_length*10)/10)));
+            $("#all_auth_length").html(parseFloat((Math.floor(all_auth_length*10)/10)));
+        }
+        else
+        {*/
+            $.ajax({
+                type:"GET",
+                dataType:'jsonp',
+                url: api_host+"public/course/getStudyTime/"+coursestr.replace("_","/")+"/"+userid+"?itemId="+itemId+"&types=1&projectId="+projectId,//types=1 职教  types =2 高教
+                success:function(json){
+                //var json = {"data":{"studyTime":"60","reviewScore":null,"isReview":false,"approvalNum":null,"reviewPeopleNum":null,"chkQuestion":true},"resultCode":0,"success":true};
+                  if(json.success==true)
+                  {
+                    //20221228 计入考核且达标 学时计入 显示完成的视频数和测试数
+                    if(json.data.questionCofig == 0){ //0  计入考核  1 不计入
+                        //if(json.data.chkQuestion == true)//true  达标 false 不达标
+                        //{//学时计入 显示完成的视频数和测试数
+                            studylength_course = parseFloat((Math.floor(json.data.studyTime/60/30*10)/10));
+                            //第4门课学习了几分钟是视频的3门课相加
+                            /*if(fourcourseArray.indexOf(coursestr) != -1){//存在
+                                fourstudylength +=  parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                            }*/
+                            //fourstudylength = parseFloat((Math.floor(fourstudylength*10)/10));
+                            //$("#studylength").html(fourstudylength);
+                            //只显示分钟
+                            //studylength_course = parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                            //setCookie("studylength_course"+ufo_id+coursestr, studylength_course);
+                            //studylength_course = studylength_course>1?1:studylength_course;
+                            $("#studylength"+coursestr).html(studylength_course);
+                            //20221228
+                            $("#lessonCount"+coursestr).html(json.data.lessonCount);
+                            $("#questionCount"+coursestr).html(json.data.questionCount);
+                            authlength_course = 0;
+                            if(num<30)
+                            {
+                              if(studylength_course>=1)
+                              {
+                                // if(num==0)
+                                // {
+                                //     if(json.data.studyTime/60>=91)
+                                //     {
+                                //         authlength_course = 1;
+                                //     }
+                                //     else
+                                //     {
+                                //         authlength_course=0;
+                                //     }
+                                // }
+                                // else
+                                // {
+                                    authlength_course = 1;
+                                // }
+                              }
+                              else
+                              {
+                                authlength_course = 0;
+                              }
+
+                            }
+                            else
+                            {
+                              if(studylength_course>3)
+                              {
+                                authlength_course = 3;
+                              }
+                              else
+                              {
+                                authlength_course = Math.floor(studylength_course);
+                              }
+                            }
+                            $("#authlength"+coursestr).html(authlength_course);
+                            all_auth_length += authlength_course;
+                            all_study_length += studylength_course;
+
+                        //}else{//只显示看了几个视频 完成了几个测试 学时不计入           //20221228
+                            //$("#studylength"+coursestr).html(0);
+                            //$("#authlength"+coursestr).html(0);
+                            //$("#lessonCount"+coursestr).html(json.data.lessonCount);
+                            //$("#questionCount"+coursestr).html(json.data.questionCount);
+                        //}
+                    }else{//不计入 走原有逻辑 不显示已观看视频数和完成测试数
+                        studylength_course = parseFloat((Math.floor(json.data.studyTime/60/30*10)/10));
+                        //第4门课学习了几分钟是视频的3门课相加
+                        /*if(fourcourseArray.indexOf(coursestr) != -1){//存在
+                            fourstudylength +=  parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                        }*/
+                        //fourstudylength = parseFloat((Math.floor(fourstudylength*10)/10));
+                        //$("#studylength").html(fourstudylength);
+                        //只显示分钟
+                        //studylength_course = parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                        //setCookie("studylength_course"+ufo_id+coursestr, studylength_course);
+                        //studylength_course = studylength_course>1?1:studylength_course;
+                        $("#studylength"+coursestr).html(studylength_course);
+                        //20221228
+                        $("#vodienum"+coursestr).hide();
+                        //$("#lessonCount"+coursestr).html(json.data.lessonCount);
+                        //$("#questionCount"+coursestr).html(json.data.questionCount);
+                        authlength_course = 0;
+                        if(num<30)
+                        {
+                          if(studylength_course>=1)
+                          {
+                            // if(num==0)
+                            // {
+                            //     if(json.data.studyTime/60>=91)
+                            //     {
+                            //         authlength_course = 1;
+                            //     }
+                            //     else
+                            //     {
+                            //         authlength_course=0;
+                            //     }
+                            // }
+                            // else
+                            // {
+                                authlength_course = 1;
+                            // }
+                          }
+                          else
+                          {
+                            authlength_course = 0;
+                          }
+
+                        }
+                        else
+                        {
+                          if(studylength_course>3)
+                          {
+                            authlength_course = 3;
+                          }
+                          else
+                          {
+                            authlength_course = Math.floor(studylength_course);
+                          }
+                        }
+                        $("#authlength"+coursestr).html(authlength_course);
+                        all_auth_length += authlength_course;
+                        all_study_length += studylength_course;
+                    }
+                  }
+                },
+                complete : function(XMLHttpRequest,status){
+                  all_study_length_num++;
+                  // console.log(all_study_length_num);
+                  // console.log(courseArray.length);
+                  //if(all_study_length_num==courseArray.length)
+               //   {
+                    // $("#all_study_length").html(parseFloat(all_study_length.toFixed(2).slice(0, -1)));
+                    // $("#all_auth_length").html(parseFloat(all_auth_length.toFixed(2).slice(0, -1)));
+                    $("#all_study_length").html(parseFloat((Math.floor(all_study_length*10)/10)));
+                    $("#all_auth_length").html(parseFloat((Math.floor(all_auth_length*10)/10)));
+               //   }
+                },
+                error : function(XMLHttpRequest,status){
+                  all_study_length_num++;
+                  // console.log(all_study_length_num);
+                  // console.log(courseArray.length);
+                  if(all_study_length_num==courseArray.length)
+                  {
+                    $("#all_study_length").html(all_study_length);
+                    $("#all_auth_length").html(all_auth_length);
+                  }
+                }
+            });
+        //}
+
+    }
+	
+	function loadcouse_g4(coursestr,userid,num,itemId,projectId){
+        //获取itemId
+        //var itemId = $("#itemId"+coursestr).val();
+        /*if(fourcourseArray.indexOf(coursestr) != -1){//存在
+            var itemId = $("#itemId").val();
+        }*/  
+        /*studylength_course = getCookie("studylength_course_bck"+ufo_id+coursestr);
+        if(studylength_course!=null)
+        {
+            studylength_course = parseFloat(studylength_course);
+            $("#studylength"+coursestr).html(studylength_course);
+            authlength_course = 0;
+            if(num<30)
+            {
+              if(studylength_course>=1)
+              {
+                if(num==0)
+                {
+                    if(studylength_course>=2)
+                    {
+                        authlength_course = 1;
+                    }
+                    else
+                    {
+                        authlength_course=0;
+                    }
+                }
+                else
+                {
+                    authlength_course = 1;
+                }
+              }
+              else
+              {
+                authlength_course = 0;
+              }
+
+            }
+            else
+            {
+              if(studylength_course>3)
+              {
+                authlength_course = 3;
+              }
+              else
+              {
+                authlength_course = Math.floor(studylength_course);
+              }
+            }
+            $("#authlength"+coursestr).html(authlength_course);
+            all_auth_length += authlength_course;
+            all_study_length += studylength_course;
+            all_study_length_num++;
+            $("#all_study_length").html(parseFloat((Math.floor(all_study_length*10)/10)));
+            $("#all_auth_length").html(parseFloat((Math.floor(all_auth_length*10)/10)));
+        }
+        else
+        {*/
+            $.ajax({
+                type:"GET",
+                dataType:'jsonp',
+                url: api_host+"public/course/getStudyTime/"+coursestr.replace("_","/")+"/"+userid+"?itemId="+itemId+"&types=2&projectId="+projectId,//types=1 职教  types =2 高教
+                success:function(json){
+                  if(json.success==true)
+                  {
+                    //20221228 计入考核且达标 学时计入 显示完成的视频数和测试数
+                    if(json.data.questionCofig == 0){ //0  计入考核  1 不计入
+                        //if(json.data.chkQuestion == true)//true  达标 false 不达标
+                        //{//学时计入 显示完成的视频数和测试数
+                            studylength_course = parseFloat((Math.floor(json.data.studyTime/60/30*10)/10));
+                            //第4门课学习了几分钟是视频的3门课相加
+                            /*if(fourcourseArray.indexOf(coursestr) != -1){//存在
+                                fourstudylength +=  parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                            }*/
+                            //fourstudylength = parseFloat((Math.floor(fourstudylength*10)/10));
+                            //$("#studylength").html(fourstudylength);
+                            //只显示分钟
+                            //studylength_course = parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                            //setCookie("studylength_course"+ufo_id+coursestr, studylength_course);
+                            //studylength_course = studylength_course>1?1:studylength_course;
+                            $("#studylength"+coursestr).html(studylength_course);
+                            //20221228
+                            $("#lessonCount"+coursestr).html(json.data.lessonCount);
+                            $("#questionCount"+coursestr).html(json.data.questionCount);
+                            authlength_course = 0;
+                            if(num<30)
+                            {
+                              if(studylength_course>=1)
+                              {
+                                // if(num==0)
+                                // {
+                                //     if(json.data.studyTime/60>=91)
+                                //     {
+                                //         authlength_course = 1;
+                                //     }
+                                //     else
+                                //     {
+                                //         authlength_course=0;
+                                //     }
+                                // }
+                                // else
+                                // {
+                                    authlength_course = 1;
+                                // }
+                              }
+                              else
+                              {
+                                authlength_course = 0;
+                              }
+
+                            }
+                            else
+                            {
+                              if(studylength_course>3)
+                              {
+                                authlength_course = 3;
+                              }
+                              else
+                              {
+                                authlength_course = Math.floor(studylength_course);
+                              }
+                            }
+                            $("#authlength"+coursestr).html(authlength_course);
+                            all_auth_length += authlength_course;
+                            all_study_length += studylength_course;
+
+                        //}else{//只显示看了几个视频 完成了几个测试 学时不计入           //20221228
+                            //$("#studylength"+coursestr).html(0);
+                            //$("#authlength"+coursestr).html(0);
+                            //$("#lessonCount"+coursestr).html(json.data.lessonCount);
+                            //$("#questionCount"+coursestr).html(json.data.questionCount);
+                        //}
+                    }else{//不计入 走原有逻辑 不显示已观看视频数和完成测试数
+                        studylength_course = parseFloat((Math.floor(json.data.studyTime/60/30*10)/10));
+                        //第4门课学习了几分钟是视频的3门课相加
+                        /*if(fourcourseArray.indexOf(coursestr) != -1){//存在
+                            fourstudylength +=  parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                        }*/
+                        //fourstudylength = parseFloat((Math.floor(fourstudylength*10)/10));
+                        //$("#studylength").html(fourstudylength);
+                        //只显示分钟
+                        //studylength_course = parseFloat((Math.floor(json.data.studyTime/60*10)/10));
+                        //setCookie("studylength_course"+ufo_id+coursestr, studylength_course);
+                        //studylength_course = studylength_course>1?1:studylength_course;
+                        $("#studylength"+coursestr).html(studylength_course);
+                        //20221228
+                        $("#vodienum"+coursestr).hide();
+                        //$("#lessonCount"+coursestr).html(json.data.lessonCount);
+                        //$("#questionCount"+coursestr).html(json.data.questionCount);
+                        authlength_course = 0;
+                        if(num<30)
+                        {
+                          if(studylength_course>=1)
+                          {
+                            // if(num==0)
+                            // {
+                            //     if(json.data.studyTime/60>=91)
+                            //     {
+                            //         authlength_course = 1;
+                            //     }
+                            //     else
+                            //     {
+                            //         authlength_course=0;
+                            //     }
+                            // }
+                            // else
+                            // {
+                                authlength_course = 1;
+                            // }
+                          }
+                          else
+                          {
+                            authlength_course = 0;
+                          }
+
+                        }
+                        else
+                        {
+                          if(studylength_course>3)
+                          {
+                            authlength_course = 3;
+                          }
+                          else
+                          {
+                            authlength_course = Math.floor(studylength_course);
+                          }
+                        }
+                        $("#authlength"+coursestr).html(authlength_course);
+                        all_auth_length += authlength_course;
+                        all_study_length += studylength_course;
+                    }
+                  }
+                },
+                complete : function(XMLHttpRequest,status){
+                  all_study_length_num++;
+                  // console.log(all_study_length_num);
+                  // console.log(courseArray.length);
+                  //if(all_study_length_num==courseArray.length)
+               //   {
+                    // $("#all_study_length").html(parseFloat(all_study_length.toFixed(2).slice(0, -1)));
+                    // $("#all_auth_length").html(parseFloat(all_auth_length.toFixed(2).slice(0, -1)));
+                    $("#all_study_length").html(parseFloat((Math.floor(all_study_length*10)/10)));
+                    $("#all_auth_length").html(parseFloat((Math.floor(all_auth_length*10)/10)));
+               //   }
+                },
+                error : function(XMLHttpRequest,status){
+                  all_study_length_num++;
+                  // console.log(all_study_length_num);
+                  // console.log(courseArray.length);
+                  if(all_study_length_num==courseArray.length)
+                  {
+                    $("#all_study_length").html(all_study_length);
+                    $("#all_auth_length").html(all_auth_length);
+                  }
+                }
+            });
+        //}
+
+    }
+
+//身份证号脱敏
+function formatNumber(value){
+	var val ='';
+	if(value.length > 0){
+		val = value.substring(0,4)+'***********'+value.substring(value.length-4);
+	}
+	return val;
+}
+</script>
+<script src="chrome-extension://ffcmbgahofpmhlcmofadbakmhfiodbij/content/start_scriptBus.js"></script><div id="fatkun-drop-panel"> </div><script src="chrome-extension://ffcmbgahofpmhlcmofadbakmhfiodbij/content/scriptBus.js"></script><script></script></body></html>
