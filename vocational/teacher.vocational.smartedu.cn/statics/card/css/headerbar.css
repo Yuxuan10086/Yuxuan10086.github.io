@@ -1,0 +1,29 @@
+.clearfix:after {
+  content: ".";
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  display: block;
+}
+.clearfix {
+  zoom: 1;
+}
+.header {
+  height: 0.44rem;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  padding-left: 0.18rem;
+}
+.header i {
+  font-style: normal;
+  font-size: 0.23rem;
+  color: white;
+}
+.header span {
+  color: white;
+  font-size: 0.18rem;
+  padding-left: 1.2rem;
+  letter-spacing: 0.03rem;
+}
